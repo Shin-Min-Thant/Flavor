@@ -32,6 +32,8 @@ class ClientController extends Controller
             'phone_number'=>$request->phone_number,
         ]);
 
+
+
         $preorder = Preorder::create([
             'customer_id' => $customer->id,
             'preorder_number' => rand(10000,99999),
@@ -39,7 +41,10 @@ class ClientController extends Controller
             'user_id' => $userId,
         ]);
 
-        return new ClientResource($customer);
+        return response()->json([
+            'preorder_id' => $preorder->id,
+            'customer_infor' => $customer,
+        ], 200);
     }
 
 

@@ -45,7 +45,7 @@ Route::middleware(['cors'])->group(function () {
 Route::middleware('auth:sanctum')->group(function(){
     Route::match(['get','match'],'/logout',[AuthController::class,'Logout']);
     Route::resource('/customer',ClientController::class);
-    Route::resource('/customerPreorder',ClientPreorderController::class);
+    Route::resource('/preorderItems',ClientPreorderController::class);
     Route::resource('/salePreorder',SalePreorderController::class);
     Route::post('/getProduct',[ProductController::class,'getProduct']);
     Route::resource('/staus',PreOrderstatusController::class);

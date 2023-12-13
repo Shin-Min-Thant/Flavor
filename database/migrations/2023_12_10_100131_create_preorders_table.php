@@ -19,6 +19,8 @@ return new class extends Migration
             $table->String('status')->defalut('pending');
             $table->integer('user_id');
             $table->String('permit_status')->nullable();
+            $table->integer('total_price')->default(0);
+            $table->integer('total_quantity')->default(0);
             $table->timestamps();
         });
     }

@@ -23,11 +23,7 @@ class clientPreorderRequest extends FormRequest
     {
         return [
             'preorder_id'=>['required'],
-            'product_id'=>['required'],
-            'product_name'=>['required','string'],
-            'total_price' => ['required'],
-            'total_quantity'=>['required'],
-            'user_id'=>['required']
+            'product_list'=>['required'],
         ];
     }
 }
