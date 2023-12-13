@@ -3,9 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Database\Factories\ProductFactory;
+use Database\Seeders\RawSeeder;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Database\Factories\ProductFactory;
 
 class DatabaseSeeder extends Seeder
 {
@@ -28,7 +29,7 @@ class DatabaseSeeder extends Seeder
         }
 
         $this->call([ProductSeeder::class
-    ,TruckSeeder::class]);
+    ,TruckSeeder::class,RawSeeder::class]);
 
         // $products = [
         //     'Burmese Bliss', 'Golden Sunshine Tea', 'Mango Tango Delight', 'Rangoon Rosewater Elixir', 'Emerald Green Chai', 'Citrus Fusion Fizz',

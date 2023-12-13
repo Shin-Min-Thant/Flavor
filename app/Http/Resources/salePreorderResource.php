@@ -20,6 +20,8 @@ class salePreorderResource extends JsonResource
             'preorder_number'=>$this->preorder_number,
             'status'=>$this->status,
             'user_id'=>$this->user_id,
+            'total_price'=>$this->total_price,
+            'total_quantity'=>$this->total_quantity,
             'permit_status'=>$this->permit_status,
         ];
     }
