@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('preorder_id');
             $table->integer('product_id');
             $table->string('product_name');
+            $table->integer('order_count');
             $table->integer('user_id');
             $table->timestamps();
         });

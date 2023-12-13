@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\Customer\ProductController;
 use App\Http\Controllers\Api\FilterController;
 use App\Http\Controllers\api\raw\ProductRawController;
 use App\Http\Controllers\Api\Sales\SalePreorderController;
+use App\Http\Controllers\api\status\PermitStatusController;
 use App\Http\Controllers\Api\status\PreOrderstatusController;
 use App\Http\Controllers\api\truck\OrderTruckController;
 use Illuminate\Http\Request;
@@ -48,8 +49,9 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::resource('/preorderItems',ClientPreorderController::class);
     Route::resource('/salePreorder',SalePreorderController::class);
     Route::post('/getProduct',[ProductController::class,'getProduct']);
-    Route::resource('/staus',PreOrderstatusController::class);
+    Route::resource('/changeOrderStatus',PreOrderstatusController::class);
     Route::resource('/product/raw',ProductRawController::class);
     Route::resource('/order/truck',OrderTruckController::class);
     Route::post('/calendarControl',[FilterController::class,'calendarControl']);
+    Route::post('/changePermitStatus',[PermitStatusController::class,'changePermitStatus']);
 });

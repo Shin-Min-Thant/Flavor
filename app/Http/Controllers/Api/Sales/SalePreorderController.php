@@ -11,9 +11,14 @@ use Illuminate\Support\Facades\Auth;
 class SalePreorderController extends Controller
 {
     public function index(){
-        return salePreorderResource::collection(
-            Preorder::orderBy('created_at','desc')->get()
-        );
+       $preorder_data = Preorder::select('preorders.*','customers.name as customer_name','customers.region as customer_region')
+       ->leftJoin('customers','preorders.customer_id','customers.id')
+       ->orderBy('preorders.created_at','desc')
+       ->get();
+       return response()->json([
+        'status' => 'success',
+        'preorder_data' => $preorder_data
+       ], 200);
     }
 
     /**
@@ -40,7 +45,7 @@ class SalePreorderController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Preorder $preorder){
-        return $this->isNotAuthorized($preorder) ? $this->isNostAuthorized($preorderStatus) : $preorder->delete();
+        return $this->isNotAuthorized($preorder) ? $this->isNostAuthorized($preorder) : $preorder->delete();
     }
 
     public function isNotAuthorized($preorder){

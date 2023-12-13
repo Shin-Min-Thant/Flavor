@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->integer('customer_id');
             $table->integer('preorder_number')->unique();
-            $table->String('status')->defalut('pending');
+            $table->String('status')->default('pending');
             $table->integer('user_id');
             $table->String('permit_status')->nullable();
             $table->integer('total_price')->default(0);

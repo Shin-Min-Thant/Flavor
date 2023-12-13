@@ -24,7 +24,6 @@ class PreorderStatusRequest extends FormRequest
         return [
             'preorder_id'=>['required'],
             'status'=>['required'],
-            'user_id'=>['required']
         ];
     }
 }

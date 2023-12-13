@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Api\status;
 
-use App\Http\Requests\PreorderStatusRequest;
-use App\Http\Resources\PreorderStatusResource;
+use Carbon\Carbon;
+use App\Models\Preorder;
 use Illuminate\Http\Request;
 use App\Models\PreorderStatus;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\PreorderStatusRequest;
+use App\Http\Resources\PreorderStatusResource;
 
 class PreOrderstatusController extends Controller
 {
@@ -23,16 +25,29 @@ class PreOrderstatusController extends Controller
     public function store(PreorderStatusRequest $request){
         $request->validated($request->all());
         $userId = Auth::user()->id;
+        $user_role = Auth::user()->role;
 
-        $preOrderstatus=PreorderStatusRequest::create([
-            'preorder_id'=>$request->preorder_id,
-            'stauts'=>$request->status,
-            'user_id'=>$userId,
-            'updated_at'=>$request->updated_at
-        ]);
+        if($user_role === 'logistic' || $user_role === 'warehouse' || $user_role === 'sales'){
+            $preOrderstatus=PreorderStatus::create([
+                'preorder_id'=>$request->preorder_id,
+                'status'=>$request->status,
+                'user_id'=>$userId,
+                'updated_at'=>Carbon::now()
+            ]);
+
+            Preorder::where('id',$request->preorder_id)->update([
+                'status' => $request->status,
+            ]);
 
 
-        return new PreorderStatusResource($preOrderstatus);
+            return new PreorderStatusResource($preOrderstatus);
+        }else {
+            return response()->json([
+                'status' => 'unauthorized',
+                'message' => "You don't have permission for this",
+            ], 200);
+        }
+
     }
 
 

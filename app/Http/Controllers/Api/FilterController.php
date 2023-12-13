@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Customer;
 use App\Models\Preorder;
 use App\Models\PreorderItem;
 use Illuminate\Http\Request;
@@ -41,18 +42,22 @@ class FilterController extends Controller
             ->leftJoin('products','preorder_items.product_id','products.id')
             ->whereBetween('preorder_items.created_at', [$startDate, $endDate])->get();
 
-
-            // $filtered_data = Preorder::select('preorders.*','customers.name as customer_name','customers.region as customer_region')
-            // ->leftJoin('customers','preorders.customer_id','customers.id')
-            // ->whereBetween('preorders.created_at', [$startDate, $endDate])->get();
+        }else if($dept === 'logistic'){
+            $filtered_data = Customer::select('customers.*','preorders.preorder_number','preorders.total_quantity','preorder_items.order_count','products.bottles_per_box')
+            ->leftJoin('preorders','customers.id','preorders.customer_id')
+            ->leftJoin('preorder_items','preorders.id','preorder_items.preorder_id')
+            ->leftJoin('products','preorder_items.product_id','products.id')
+            ->whereBetween('preorders.created_at', [$startDate, $endDate])->get();
+        }else if($dept === 'factory') {
+            $filtered_data = PreorderItem::select('preorder_items.*','preorders.total_quantity','preorders.preorder_number','products.bottles_per_box')
+            ->leftJoin('preorders','preorder_items.preorder_id','preorders.id')
+            ->leftJoin('products','preorder_items.product_id','products.id')
+            ->whereBetween('preorder_items.created_at', [$startDate, $endDate])->get();
+        }else if($dept === 'admin'){
+            $filtered_data = Customer::select('customers.*','preorders.preorder_number','preorders.total_quantity','preorders.total_price')
+            ->leftJoin('preorders','customers.id','preorders.customer_id')
+            ->whereBetween('preorders.created_at', [$startDate, $endDate])->get();
         }
-            // }else if($dept === 'admin'){
-        //     $filtered_data = Preorder::whereBetween('created_at', [$startDate, $endDate])->get();
-        // }else if($dept === 'sales'){
-        //     $filtered_data = Preorder::whereBetween('created_at', [$startDate, $endDate])->get();
-        // }else if($dept === 'sales'){
-        //     $filtered_data = Preorder::whereBetween('created_at', [$startDate, $endDate])->get();
-        // }
 
         return response()->json([
             'dept' => $request->dept,

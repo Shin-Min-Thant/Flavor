@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('preorder_statuses', function (Blueprint $table) {
             $table->id();
-            $table->integer('customer_id');
             $table->integer('preorder_id');
             $table->String('status');
             $table->integer('user_id');

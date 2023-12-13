@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        $roles = ['client', 'sales', 'logistics', 'warehouse', 'factory', 'admin'];
+        $roles = ['client', 'sales', 'logistic', 'warehouse', 'factory', 'admin'];
 
         for ($i = 0; $i < count($roles); $i++) {
             \App\Models\User::factory()->create([

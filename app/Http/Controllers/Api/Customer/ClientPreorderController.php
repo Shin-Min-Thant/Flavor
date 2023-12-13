@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Api\Customer;
 
-use App\Http\Requests\clientPreorderRequest;
+use App\Models\Preorder;
 use App\Models\PreorderItem;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\clientPreorderRequest;
 use App\Http\Resources\clientPreorderResource;
 
 class ClientPreorderController extends Controller
@@ -32,10 +33,16 @@ class ClientPreorderController extends Controller
                 'preorder_id' => $request->preorder_id,
                 'product_id' => $p['product_id'],
                 'product_name' => $p['product_name'],
-
+                'order_count' => $p['order_count'],
                 'user_id' => $userId,
             ]);
         }
+
+        Preorder::where('id',$request->preorder_id)
+        ->update([
+            'total_price' => $request->total_price,
+            'total_quantity' => $request->total_qty,
+        ]);
 
         return response()->json([
             'status' => 'success',
