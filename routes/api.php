@@ -5,6 +5,7 @@
 
 
 use App\Http\Controllers\api\LogisticPReorderController;
+use App\Http\Controllers\api\WareHouseController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
@@ -60,5 +61,6 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/getRawList',[FactoryController::class,'getRawList']);
     Route::get('/getFactoryData',[FactoryController::class,'getFactoryData']);
     Route::post('/getPreorderDetail',[PreorderController::class,'getPreorderDetail']);
-    Route::resource('/wareHousePreorder',LogisticPReorderController::class);
+    Route::resource('/wareHousePreorder',WareHouseController::class);
+    Route::resource('/logisticPreorder',LogisticPReorderController::class);
 });
