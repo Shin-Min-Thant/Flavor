@@ -60,5 +60,5 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('/getRawList',[FactoryController::class,'getRawList']);
     Route::get('/getFactoryData',[FactoryController::class,'getFactoryData']);
     Route::post('/getPreorderDetail',[PreorderController::class,'getPreorderDetail']);
-    Route::resource('/logisticPreorder',LogisticPReorderController::class);
+    Route::resource('/wareHousePreorder',LogisticPReorderController::class);
 });
