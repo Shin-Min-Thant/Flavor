@@ -27,7 +27,7 @@ class ProductSeeder extends Seeder
         foreach ($products as $product) {
             $final_products[] = [
                 'product_name' => $product,
-                'product_price' => rand(5000, 10000),
+                'product_price' => rand(50, 100) * 100,
                 'bottles_per_box' => rand(10, 300),
             ];
         }

@@ -4,18 +4,20 @@
 
 
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\Customer\ClientController;
-use App\Http\Controllers\Api\Customer\ClientPreorderController;
-use App\Http\Controllers\Api\Customer\ProductController;
 use App\Http\Controllers\Api\FilterController;
+use App\Http\Controllers\api\FactoryController;
+use App\Http\Controllers\Api\PreorderController;
 use App\Http\Controllers\api\raw\ProductRawController;
+use App\Http\Controllers\Api\Customer\ClientController;
+use App\Http\Controllers\Api\Customer\ProductController;
+use App\Http\Controllers\api\truck\OrderTruckController;
 use App\Http\Controllers\Api\Sales\SalePreorderController;
 use App\Http\Controllers\api\status\PermitStatusController;
 use App\Http\Controllers\Api\status\PreOrderstatusController;
-use App\Http\Controllers\api\truck\OrderTruckController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\Customer\ClientPreorderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,4 +56,8 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::resource('/order/truck',OrderTruckController::class);
     Route::post('/calendarControl',[FilterController::class,'calendarControl']);
     Route::post('/changePermitStatus',[PermitStatusController::class,'changePermitStatus']);
+    Route::post('/getRawList',[FactoryController::class,'getRawList']);
+    Route::get('/getFactoryData',[FactoryController::class,'getFactoryData']);
+    Route::post('/getPreorderDetail',[PreorderController::class,'getPreorderDetail']);
+
 });

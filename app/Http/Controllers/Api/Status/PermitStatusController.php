@@ -14,11 +14,11 @@ class PermitStatusController extends Controller
         if($user_role === 'sales'){
             Preorder::where('id',$request->preorder_id)
             ->update([
-                'permit_status' => $request->status,
+                'permit_status' => $request->permit_status,
             ]);
             return response()->json([
                 'status' => 'success',
-                'message' => "Your status changed to " . $request->status,
+                'message' => "Your status changed to " . $request->permit_status,
             ], 200);
         }else {
             return response()->json([

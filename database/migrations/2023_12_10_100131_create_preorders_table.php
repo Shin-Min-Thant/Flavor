@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('preorder_number')->unique();
             $table->String('status')->default('pending');
             $table->integer('user_id');
-            $table->String('permit_status')->nullable();
+            $table->String('permit_status')->default('pending');
             $table->integer('total_price')->default(0);
             $table->integer('total_quantity')->default(0);
             $table->timestamps();

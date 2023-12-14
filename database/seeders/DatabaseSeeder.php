@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         }
 
         $this->call([ProductSeeder::class
-    ,TruckSeeder::class,RawSeeder::class]);
+    ,TruckSeeder::class,RawSeeder::class,ProductRawSeeder::class]);
 
         // $products = [
         //     'Burmese Bliss', 'Golden Sunshine Tea', 'Mango Tango Delight', 'Rangoon Rosewater Elixir', 'Emerald Green Chai', 'Citrus Fusion Fizz',
