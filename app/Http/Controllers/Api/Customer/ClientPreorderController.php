@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Customer;
 
+use App\Models\Product;
 use App\Models\Preorder;
 use App\Models\PreorderItem;
 use Illuminate\Http\Request;
@@ -26,17 +27,26 @@ class ClientPreorderController extends Controller
         $userId = Auth::user()->id;
 
         foreach ($request->product_list as $p) {
+
+            $product = Product::where('id',$p['product_id'])->first();
+            $box = ceil($p['order_count'] / $product->bottles_per_box);
+
             PreorderItem::create([
                 'preorder_id' => $request->preorder_id,
                 'product_id' => $p['product_id'],
                 'product_name' => $p['product_name'],
                 'order_count' => $p['order_count'],
+                'boxes' => $box ,
                 'user_id' => $userId,
             ]);
         }
 
+        // Calculate total boxes for the preorder_items
+        $totalBoxes = PreorderItem::where('preorder_id', $request->preorder_id)->sum('boxes');
+
         Preorder::where('id',$request->preorder_id)
         ->update([
+            'total_box' => $totalBoxes,
             'total_price' => $request->total_price,
             'total_quantity' => $request->total_quantity,
         ]);
@@ -46,7 +56,7 @@ class ClientPreorderController extends Controller
             'message' => 'products added to order',
         ], 200);
 
-        // return new clientPreorderResource($preOrder);
+
     }
 
 

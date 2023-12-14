@@ -64,3 +64,4 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::resource('/wareHousePreorder',WareHouseController::class);
     Route::resource('/logisticPreorder',LogisticPReorderController::class);
 });
+

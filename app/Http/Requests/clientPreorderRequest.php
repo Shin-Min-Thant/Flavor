@@ -24,6 +24,7 @@ class clientPreorderRequest extends FormRequest
         return [
             'preorder_id'=>['required'],
             'product_list'=>['required'],
+
         ];
     }
 }
