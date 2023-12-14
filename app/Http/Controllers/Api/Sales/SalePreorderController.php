@@ -15,7 +15,7 @@ class SalePreorderController extends Controller
        ->leftJoin('customers','preorders.customer_id','customers.id')
        ->leftJoin('preorder_items','preorders.id','preorder_items.preorder_id')
        ->leftJoin('products','preorder_items.product_id','products.id')
-       ->orderBy('preorders.created_at','desc')
+       ->orderBy('preorders.id')
        ->get();
 
        for ($i = 0; $i < count($preorder_data); $i++) {
