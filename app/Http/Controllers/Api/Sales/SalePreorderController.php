@@ -18,10 +18,7 @@ class SalePreorderController extends Controller
        ->orderBy('preorders.id')
        ->get();
 
-       for ($i = 0; $i < count($preorder_data); $i++) {
-        $order_box = $preorder_data[$i]->order_count / $preorder_data[$i]->bottles_per_box;
-        $preorder_data[$i]->order_box = ceil($order_box);
-    }
+
        return response()->json([
         'status' => 'success',
         'preorder_data' => $preorder_data
