@@ -24,7 +24,7 @@ class OrderTruckRequest extends FormRequest
         return [
             'truck_id'=>['required'],
             'preorder_id'=>['required'],
-            'loaded_date_time'=>['required']
+
         ];
     }
 }

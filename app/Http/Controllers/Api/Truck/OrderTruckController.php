@@ -2,20 +2,24 @@
 
 namespace App\Http\Controllers\api\truck;
 
-use App\Http\Requests\OrderTruckRequest;
+use Carbon\Carbon;
+use App\Models\Truck;
 use App\Models\OrderTruck;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\OrderTruckRequest;
 use App\Http\Resources\OrderTruckResource;
 
 class OrderTruckController extends Controller
 {
 
     public function index(){
-        return OrderTruckResource::collection(
-            OrderTruck::where('user_id',Auth::user()->id)->get()
-        );
+        $truck_list = Truck::get();
+        return response()->json([
+            'status' => 'success',
+            'truck_list' => $truck_list,
+        ], 200);
     }
 
     /**
@@ -28,7 +32,7 @@ class OrderTruckController extends Controller
         $orderTruck=OrderTruck::create([
             'truck_id'=>$request->truck_id,
             'preorder_id'=>$request->preorder_id,
-            'loaded_date_time'=>$request->loaded_date_time
+            'loaded_date_time'=>Carbon::now()
         ]);
 
         return new OrderTruckResource($orderTruck);
@@ -40,7 +44,7 @@ class OrderTruckController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(OrderTruck $orderTruck){
-        return $this->isNotAuthorized($orderTruck) ? $this->isNostAuthorized($preorderStatus) : $preorder->delete();
+        return $this->isNotAuthorized($orderTruck) ? $this->isNostAuthorized($orderTruck) : $orderTruck->delete();
     }
 
     public function isNotAuthorized($orderTruck){
