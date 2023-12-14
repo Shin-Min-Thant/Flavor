@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('raw_id');
             $table->integer('amount');
             $table->timestamps();
-        });
+    });
     }
 
     /**
