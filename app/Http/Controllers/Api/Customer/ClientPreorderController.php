@@ -23,9 +23,6 @@ class ClientPreorderController extends Controller
      */
     public function store(clientPreorderRequest $request){
         $request->validated($request->all());
-
-
-
         $userId = Auth::user()->id;
 
         foreach ($request->product_list as $p) {
@@ -41,7 +38,7 @@ class ClientPreorderController extends Controller
         Preorder::where('id',$request->preorder_id)
         ->update([
             'total_price' => $request->total_price,
-            'total_quantity' => $request->total_qty,
+            'total_quantity' => $request->total_quantity,
         ]);
 
         return response()->json([
