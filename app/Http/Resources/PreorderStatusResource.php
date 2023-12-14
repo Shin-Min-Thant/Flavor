@@ -19,7 +19,7 @@ class PreorderStatusResource extends JsonResource
             'preorder_id'=>$this->preorder_id,
             'status'=>$this->status,
             'user_id'=>$this->user_id,
-            'update_at'=>$this->update_at,
+            'update_at'=>$this->updated_at,
         ];
     }
 }
