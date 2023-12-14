@@ -9,10 +9,8 @@ use App\Http\Controllers\Controller;
 class LogisticPReorderController extends Controller
 {
     public function index(){
-        $preorder_data = Preorder::select('preorders.*','customers.name as customer_name','customers.region as customer_region','customers.address as customer_address','preorder_items.order_count')
+        $preorder_data = Preorder::select('preorders.*','customers.name as customer_name','customers.region as customer_region','customers.address as customer_address')
         ->leftJoin('customers','preorders.customer_id','customers.id')
-        ->leftJoin('preorder_items','preorders.id','preorder_items.preorder_id')
-        ->leftJoin('products','preorder_items.product_id','products.id')
         ->orderBy('preorders.id')
         ->get();
 
