@@ -56,7 +56,7 @@ class ClientPreorderController extends Controller
             'message' => 'products added to order',
         ], 200);
 
-        // return new clientPreorderResource($preOrder);
+
     }
 
 

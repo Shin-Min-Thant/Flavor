@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Models\Preorder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class WareHouseController extends Controller
