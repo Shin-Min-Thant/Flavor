@@ -28,7 +28,7 @@ class ProductSeeder extends Seeder
             $final_products[] = [
                 'product_name' => $product,
                 'product_price' => rand(50, 100) * 100,
-                'bottles_per_box' => rand(10, 300),
+                'bottles_per_box' => rand(1, 10),
             ];
         }
         Product::insert($final_products);
