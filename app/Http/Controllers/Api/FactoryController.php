@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\api;
 
+use App\Models\Preorder;
 use App\Models\ProductRaw;
 use App\Models\PreorderItem;
 use Illuminate\Http\Request;
@@ -40,16 +41,14 @@ class FactoryController extends Controller
 
     public function getFactoryData(){
 
-        $preorder_items = PreorderItem::select('preorder_items.*','preorders.total_quantity','products.bottles_per_box')
-        ->leftJoin('preorders','preorder_items.preorder_id','preorders.id')
-        ->leftJoin('products','preorder_items.product_id','products.id')
+        $preorder_data = Preorder::select('preorders.*','customers.name as customer_name','customers.region as customer_region','customers.address as customer_address')
+        ->leftJoin('customers','preorders.customer_id','customers.id')
+        ->orderBy('preorders.id')
         ->get();
-        for ($i = 0; $i < count($preorder_items); $i++) {
-            $order_box = $preorder_items[$i]->order_count / $preorder_items[$i]->bottles_per_box;
-            $preorder_items[$i]->order_box = ceil($order_box);
-        }
+
         return response()->json([
-            'data' => $preorder_items,
+            'status' => 'success',
+            'data' => $preorder_data,
         ], 200);
     }
 }

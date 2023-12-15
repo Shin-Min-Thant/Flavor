@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Models\Preorder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\PreorderItem;
 
 class LogisticPReorderController extends Controller
 {
@@ -15,9 +16,12 @@ class LogisticPReorderController extends Controller
         ->get();
 
 
+
+
+
         return response()->json([
          'status' => 'success',
-         'preorder_data' => $preorder_data
+         'preorder_data' => $preorder_data,
         ], 200);
      }
 }
