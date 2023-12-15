@@ -23,7 +23,7 @@ class OrderTruckRequest extends FormRequest
     {
         return [
             'truck_id'=>['required'],
-            'preorder_id'=>['required'],
+            'preorder_id_list'=>['required'],
 
         ];
     }
