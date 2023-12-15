@@ -13,16 +13,18 @@ class LogisticPReorderController extends Controller
 {
     public function index(){
 
-        
-        $preorder_data = Preorder::select('preorders.*','customers.name as customer_name','customers.region as customer_region','customers.address as customer_address','order_trucks.*','trucks.*')
-        ->leftJoin('customers','preorders.customer_id','customers.id')
-        ->leftJoin('order_trucks', function($join) {
-            $join->on('order_trucks.preorder_id','preorders.id');
-            $join->on('order_trucks.truck_id', DB::raw('(SELECT truck_id FROM order_trucks WHERE order_trucks.preorder_id = preorders.id LIMIT 1)'));
-        })
-        ->leftJoin('trucks','order_trucks.truck_id','trucks.id')
-        ->orderBy('preorders.id')
+        $preorder_data = Preorder::select(
+            'preorders.*',
+            'customers.name as customer_name',
+            'customers.region as customer_region',
+            'customers.address as customer_address',
+            'trucks.license'
+        )
+        ->leftJoin('order_trucks', 'preorders.id', '=', 'order_trucks.preorder_id')
+        ->leftJoin('trucks', 'order_trucks.truck_id', '=', 'trucks.id')
+        ->leftJoin('customers', 'preorders.customer_id', '=', 'customers.id')
         ->get();
+        
 
 
         return response()->json([
